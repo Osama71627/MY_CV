@@ -246,6 +246,30 @@
     .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
     .nav-hamburger span { width:22px; height:2px; background:var(--text); border-radius:2px; transition:all var(--transition); }
 
+    /* PORTFOLIO – CAROUSEL */
+    .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; }
+    .portfolio-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:all var(--transition); }
+    .portfolio-card:hover { border-color:rgba(61,139,255,0.35); box-shadow:0 12px 48px var(--card-glow); transform:translateY(-6px); }
+    .portfolio-carousel { position:relative; overflow:hidden; aspect-ratio:16/10; background:var(--bg3); }
+    .carousel-track { display:flex; width:100%; height:100%; position:relative; }
+    .carousel-slide { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:3.2rem; opacity:0; transition:opacity 0.8s ease, transform 0.8s ease; transform:scale(0.95); }
+    .carousel-slide.active { opacity:1; transform:scale(1); z-index:1; }
+    .carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.6s ease; }
+    .portfolio-card:hover .carousel-slide.active img { transform:scale(1.05); }
+    .carousel-dots { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:5; }
+    .carousel-dots .dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.4); border:1px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s ease; }
+    .carousel-dots .dot.active { background:#fff; border-color:#fff; box-shadow:0 0 10px rgba(255,255,255,0.5); width:20px; border-radius:4px; }
+    .carousel-dots .dot:hover { background:rgba(255,255,255,0.8); }
+    .portfolio-overlay { position:absolute; inset:0; background:rgba(10,13,20,0.75); backdrop-filter:blur(4px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; opacity:0; transition:opacity 0.4s ease; z-index:10; }
+    .portfolio-card:hover .portfolio-overlay { opacity:1; }
+    .portfolio-overlay .btn { transform:translateY(16px) scale(0.95); transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1), all 0.3s ease; }
+    .portfolio-card:hover .portfolio-overlay .btn { transform:translateY(0) scale(1); }
+    .portfolio-body { padding:1.5rem; }
+    .portfolio-title { font-family:var(--font-head); font-size:1.05rem; font-weight:700; color:var(--heading); margin-bottom:0.4rem; }
+    .portfolio-desc { font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1rem; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .portfolio-tags { display:flex; flex-wrap:wrap; gap:0.45rem; }
+    .portfolio-tags .skill-tag { font-size:0.72rem; padding:0.2rem 0.6rem; }
+
     @media (max-width:900px) {
       #hero { grid-template-columns:1fr; gap:3rem; padding:4rem 1.5rem; text-align:center; }
       [dir="rtl"] #hero { text-align:center; }
@@ -255,6 +279,7 @@
       .hero-visual { order:-1; }
       .profile-card { width:240px; }
       .contact-inner { grid-template-columns:1fr; gap:2.5rem; }
+      .portfolio-grid { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
       .nav-links { display:none; }
       .nav-links.open { display:flex; flex-direction:column; position:fixed; top:var(--nav-h); left:0; right:0; background:var(--bg2); border-bottom:1px solid var(--border); padding:1.5rem 2rem; gap:1.25rem; }
       .nav-hamburger { display:flex; }
@@ -262,6 +287,7 @@
     @media (max-width:600px) {
       section { padding:3.5rem 1.25rem; }
       .skills-grid { grid-template-columns:1fr; }
+      .portfolio-grid { grid-template-columns:1fr; }
       .hero-stats { gap:1.5rem; flex-wrap:wrap; }
     }
     @media print {
@@ -281,6 +307,7 @@
       <li><a href="#experience" onclick="closeNav()"><span class="en">Experience</span><span class="ar">الخبرة</span></a></li>
       <li><a href="#education" onclick="closeNav()"><span class="en">Education</span><span class="ar">التعليم</span></a></li>
       <li><a href="#skills" onclick="closeNav()"><span class="en">Skills</span><span class="ar">المهارات</span></a></li>
+      <li><a href="#portfolio" onclick="closeNav()"><span class="en">Portfolio</span><span class="ar">أعمالي</span></a></li>
       <li><a href="#contact" onclick="closeNav()"><span class="en">Contact</span><span class="ar">التواصل</span></a></li>
     </ul>
     <div class="nav-actions">
@@ -536,6 +563,160 @@
       </div>
     </section>
 
+    <!-- PORTFOLIO -->
+    <section id="portfolio" aria-labelledby="portfolio-heading">
+      <div class="section-header reveal">
+        <div>
+          <div class="section-label"><span class="en">05 / Featured Work</span><span class="ar">٠٥ / أعمال مميزة</span></div>
+          <h2 class="section-title" id="portfolio-heading"><span class="en">Portfolio</span><span class="ar">معرض الأعمال</span></h2>
+        </div>
+        <div class="section-line"></div>
+      </div>
+      <div class="portfolio-grid">
+
+        <!-- 1 – E-Commerce -->
+        <article class="portfolio-card reveal">
+          <div class="portfolio-carousel" data-interval="3800">
+            <div class="carousel-track">
+              <div class="carousel-slide active" ><img src="/صور المشاريع/online_shop/Screenshot 2026-06-01 125159.png" alt="1"></div>
+              <div class="carousel-slide" ><img src="/صور المشاريع/online_shop/Screenshot 2026-06-01 124847.png" alt="2"></div>
+              <div class="carousel-slide" ><img src="/صور المشاريع/online_shop/Screenshot 2026-06-01 125527.png" alt=""></div>
+            </div>
+            <div class="carousel-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="portfolio-overlay">
+              <a href="https://online-shop-3t4h.onrender.com/" class="btn btn-primary" target="_blank" rel="noopener">
+                <span class="en">🔗 Live Demo</span>
+                <span class="ar">🔗 معاينة حية</span>
+              </a>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h3 class="portfolio-title"><span class="en">E-Commerce Platform</span><span class="ar">متجر الكتروني </span></h3>
+            <p class="portfolio-desc"><span class="en">Full-featured online store with cart, checkout, and payment integration.</span><span class="ar">متجر إلكتروني متكامل مع سلة مشتريات وإتمام الدفع.</span></p>
+            <div class="portfolio-tags"><span class="skill-tag">PYTHON-DJANGO</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JAVASCRIPT</span></div>
+          </div>
+        </article>
+
+        <!-- 2 – Corporate -->
+        <article class="portfolio-card reveal">
+          <div class="portfolio-carousel" data-interval="3500">
+            <div class="carousel-track">
+              <div class="carousel-slide active" ><img src="/صور المشاريع/خبيرseo/Screenshot 2026-06-01 133304.png" alt="1"></div>
+              <div class="carousel-slide"><img src="/صور المشاريع/خبيرseo/Screenshot 2026-06-01 133439.png" alt=""></div>
+              <div class="carousel-slide" ><img src="/صور المشاريع/خبيرseo/Screenshot 2026-06-01 133523.png" alt=""></div>
+            </div>
+            <div class="carousel-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="portfolio-overlay">
+              <a href="https://osama71627.github.io/SEO_SITE/" class="btn btn-primary" target="_blank" rel="noopener">
+                <span class="en">🔗 Live Demo</span>
+                <span class="ar">🔗 معاينة حية</span>
+              </a>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h3 class="portfolio-title"><span class="en">SEO expert</span><span class="ar">خبير محركات البحث</span></h3>
+            <p class="portfolio-desc"><span class="en">Professional corporate site with CMS, multi-language & SEO optimization.</span><span class="ar">موقع شركات احترافي مع إدارة محتوى، دعم لغات، وتحسين محركات بحث.</span></p>
+            <div class="portfolio-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JAVASCRIPT</span>
+          </div>
+        </article>
+
+        <!-- 3 – Dashboard -->
+        <article class="portfolio-card reveal">
+          <div class="portfolio-carousel" data-interval="4200">
+            <div class="carousel-track">
+              <div class="carousel-slide active" ><img src="/صور المشاريع/OFQ/1.png" alt="1"></div>
+              <div class="carousel-slide" ><img src="/صور المشاريع/OFQ/Screenshot 2026-06-01 134901.png" alt="2"></div>
+              <div class="carousel-slide" ><img src="/صور المشاريع/OFQ/Screenshot 2026-06-01 135103.png" alt=""></div>
+            </div>
+            <div class="carousel-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="portfolio-overlay">
+              <a href="https://osama71627.github.io/Ofoq_webSite/" class="btn btn-primary" target="_blank" rel="noopener">
+                <span class="en">🔗 Live Demo</span>
+                <span class="ar">🔗 معاينة حية</span>
+              </a>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h3 class="portfolio-title"><span class="en">Ofoq platform</span><span class="ar">منصة افق</span></h3>
+            <p class="portfolio-desc"><span class="en">Professional corporate site with CMS, multi-language & SEO optimization</span><span class="ar">موقع شركات احترافي مع إدارة محتوى، دعم لغات، وتحسين محركات بحث.</span></p>
+            <div class="portfolio-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JAVASCRIPT</span></div>
+          </div>
+        </article>
+
+        <!-- 4 – Blog -->
+        <article class="portfolio-card reveal">
+          <div class="portfolio-carousel" data-interval="3700">
+            <div class="carousel-track">
+              <div class="carousel-slide active"><img src="/صور المشاريع/desktop/Screenshot 2026-06-01 140137.png" alt=""></div>
+              <div class="carousel-slide"       ><img src="/صور المشاريع/desktop/Screenshot 2026-06-01 140230.png" alt="2"></div>
+              <div class="carousel-slide"       ><img src="/صور المشاريع/desktop/Screenshot 2026-06-01 140635.png" alt="3"></div>
+            </div>
+            <div class="carousel-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="portfolio-overlay">
+              <a href="https://osama71627.github.io/web_site_desktop/" class="btn btn-primary" target="_blank" rel="noopener">
+                <span class="en">🔗 Live Demo</span>
+                <span class="ar">🔗 معاينة حية</span>
+              </a>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h3 class="portfolio-title"><span class="en">DeskTop</span><span class="ar">سطح المكتب </span></h3>
+            <p class="portfolio-desc"><span class="en">the main screen of a computer that contains icons, files, and the taskbar</span><span class="ar">الشاشة الرئيسية في الحاسوب التي تحتوي على الأيقونات والملفات وشريط المهام</span></p>
+            <div class="portfolio-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JAVASCRIPT</span></div>
+          </div>
+        </article>
+
+
+        <!-- 5 – SaaS Landing 
+        <article class="portfolio-card reveal">
+          <div class="portfolio-carousel" data-interval="3900">
+            <div class="carousel-track">
+              <div class="carousel-slide active" style="background:linear-gradient(135deg,#92400e,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:3.2rem;">🚀</div>
+              <div class="carousel-slide" style="background:linear-gradient(135deg,#422006,#d97706);display:flex;align-items:center;justify-content:center;font-size:3.2rem;">✨</div>
+              <div class="carousel-slide" style="background:linear-gradient(135deg,#451a03,#f97316);display:flex;align-items:center;justify-content:center;font-size:3.2rem;">💎</div>
+            </div>
+            <div class="carousel-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="portfolio-overlay">
+              <a href="#" class="btn btn-primary" target="_blank" rel="noopener">
+                <span class="en">🔗 Live Demo</span>
+                <span class="ar">🔗 معاينة حية</span>
+              </a>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h3 class="portfolio-title"><span class="en">SaaS Landing Page</span><span class="ar">صفحة هبوط SaaS</span></h3>
+            <p class="portfolio-desc"><span class="en">High-converting landing page with animations, testimonials & pricing.</span><span class="ar">صفحة هبوط عالية التحويل مع رسوم متحركة وآراء العملاء والأسعار.</span></p>
+            <div class="portfolio-tags"><span class="skill-tag">HTML/CSS</span><span class="skill-tag">GSAP</span><span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span></div>
+          </div>
+        </article>-->
+        
+
+        <!-- 6 – Mobile App 
+        <article class="portfolio-card reveal">
+          <div class="portfolio-carousel" data-interval="3600">
+            <div class="carousel-track">
+              <div class="carousel-slide active" style="background:linear-gradient(135deg,#831843,#ec4899);display:flex;align-items:center;justify-content:center;font-size:3.2rem;">📱</div>
+              <div class="carousel-slide" style="background:linear-gradient(135deg,#4c0519,#f43f5e);display:flex;align-items:center;justify-content:center;font-size:3.2rem;">📲</div>
+              <div class="carousel-slide" style="background:linear-gradient(135deg,#500724,#e11d48);display:flex;align-items:center;justify-content:center;font-size:3.2rem;">🎨</div>
+            </div>
+            <div class="carousel-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="portfolio-overlay">
+              <a href="#" class="btn btn-primary" target="_blank" rel="noopener">
+                <span class="en">🔗 Live Demo</span>
+                <span class="ar">🔗 معاينة حية</span>
+              </a>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h3 class="portfolio-title"><span class="en">Mobile App Showcase</span><span class="ar">عرض تطبيق جوال</span></h3>
+            <p class="portfolio-desc"><span class="en">Responsive app landing site with screenshots, features grid & download links.</span><span class="ar">موقع عرض لتطبيق جوال مع لقطات شاشة، ميزات وروابط التحميل.</span></p>
+            <div class="portfolio-tags"><span class="skill-tag">Angular</span><span class="skill-tag">Bootstrap</span><span class="skill-tag">Firebase</span><span class="skill-tag">PWA</span></div>
+          </div>
+        </article>-->
+
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact" aria-labelledby="contact-heading">
       <div class="contact-inner">
@@ -560,7 +741,7 @@
               <div class="contact-icon">📞</div>
               <div class="contact-detail">
                 <div class="contact-label"><span class="en">Phone / WhatsApp</span><span class="ar">الهاتف / واتساب</span></div>
-                <div class="contact-value"><a href="tel:+9675709046517">+967 570-904-651</a></div>
+                <div class="contact-value"><a href="tel:+9665709046517">+966 570-904-651</a></div>
               </div>
             </div>
             <div class="contact-item">
@@ -675,6 +856,39 @@
       sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 120) current = sec.id; });
       navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : ''; });
     }, { passive: true });
+
+    // ── Portfolio Carousels ─────────────────────────
+    function initCarousels() {
+      document.querySelectorAll('.portfolio-carousel').forEach(carousel => {
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const dots = carousel.querySelectorAll('.dot');
+        const interval = parseInt(carousel.dataset.interval) || 3800;
+        let idx = 0, timer = null;
+
+        function goTo(i) {
+          slides.forEach(s => s.classList.remove('active'));
+          dots.forEach(d => d.classList.remove('active'));
+          slides[i].classList.add('active');
+          dots[i].classList.add('active');
+          idx = i;
+        }
+
+        function next() { goTo((idx + 1) % slides.length); }
+
+        function start() { timer = setInterval(next, interval); }
+        function stop() { clearInterval(timer); timer = null; }
+
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => { goTo(i); stop(); start(); });
+        });
+
+        carousel.addEventListener('mouseenter', stop);
+        carousel.addEventListener('mouseleave', start);
+
+        start();
+      });
+    }
+    initCarousels();
   </script>
 </body>
 </html>
